@@ -1,0 +1,12 @@
+/sandbox
+/.env
+*.ipynb
+/pictures
+/venv
+/.vscode
+/.ipynb_checkpoints
+**/.pytest_cache
+**/*_cache
+/Computer-Visi*
+**/.DS_Store
+**/__pycache__
