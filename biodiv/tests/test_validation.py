@@ -1,9 +1,9 @@
-from biodiv.validation import det_benchmark
+from biodiv.validation import det_benchmark, cnts_benchmark
 from biodiv.detection import V1
 import pytest
 
 
-class TestDet_benchmark():
+class TestCnts_benchmark():
     @pytest.mark.parametrize(
         "img_src,results_dic",
         [
@@ -28,7 +28,7 @@ class TestDet_benchmark():
         Expecting an exact match
         '''
 
-        results = det_benchmark(img_src)
+        results = cnts_benchmark(img_src)
 
         assert results == results_dic
 
