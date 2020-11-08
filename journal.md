@@ -1,6 +1,7 @@
 # Biodiv project
 
 # Next up
+- this seems to be the culprit: 'biodiv/tests/test_images/but1_lab.jp2'
 - fix git prompt in iterminal
 - Load everything in docker, might resolve TravisCI issues.
 
