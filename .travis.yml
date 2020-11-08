@@ -8,3 +8,7 @@ install:
 
 script:
     - pytest
+
+env:
+    - WITH_JASPER=ON BUILD_JASPER=OFF
+    - BUILD_JASPER=ON WITH_JASPER=ON

@@ -32,6 +32,8 @@ class TestCnts_benchmark():
 
         assert results == results_dic
 
+
+class TestDet_benchmark():
     @pytest.mark.parametrize("img_src,img_lab,min_recall,min_precision",
         [('biodiv/tests/test_images/but1.jp2',
           'biodiv/tests/test_images/but1_lab.jp2',
