@@ -10,5 +10,5 @@ script:
     - pytest
 
 env:
-    - export OPENCV_IO_ENABLE_JASPER=ON
     - OPENCV_IO_ENABLE_JASPER=1
+    - dummy=0
