@@ -11,4 +11,3 @@ script:
 
 env:
     - OPENCV_IO_ENABLE_JASPER=1
-    - dummy=0
