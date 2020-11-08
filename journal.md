@@ -1,7 +1,8 @@
 # Biodiv project
 
 # Next up
-- fix git prompt in iterm
+- fix git prompt in iterminal
+- Load everything in docker, might resolve TravisCI issues.
 
 `main.py` *eventually cli.py*
     - [x] find ROIs from provided paths and display result
