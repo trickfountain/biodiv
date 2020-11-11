@@ -1,25 +1,7 @@
 # -*- coding: utf-8 -*-
 import cv2 as cv
 import numpy as np
-from biodiv.utils import bounded_rectangle, display
-
-
-def resize_img(img: np.array, resize_width=False):
-    '''Resize image.
-
-    Keep original shape if resize_width=False
-    '''
-    if not isinstance(img, np.ndarray):
-        raise ValueError('img should be of format np.array, check input provided')
-
-    if resize_width:
-        width = resize_width
-        resize_factor = width/img.shape[1]
-        img = cv.resize(img.copy(), None, fx=resize_factor, fy=resize_factor,
-                        interpolation=cv.INTER_CUBIC
-                        )
-
-    return img
+from biodiv.utils import bounded_rectangle, display, resize_img
 
 
 def pp_img(img: np.ndarray, ksize=5, pmsf_par=(21,21)):
@@ -96,30 +78,40 @@ def detect_ROI(img, min_size=2, margin=3.75):
 
 def V1(img_src: str):
     ##TODO: rewrite docstring, scope of V1 changed.
-    '''Detects principal Regions Of Interest (ROI) for an image
+    '''First version for detection
+    Pipeline that starts with img path and ends with img (resized)
+        and Regions of Interests
 
-    expects a grayscale image loaded with OpenCv
-
-    V1 is using pyramid shift filtering which is expensive to compute and 
-    probably not necessary.
-
-    show :: If true will display original and detected images side by side.
-        Otherwise returns modified image with ROI inside rectangles
+    ROI: 
     '''
     img = cv.imread(img_src, 0)
     res_img = resize_img(img, 600)
     pre_processed = pp_img(res_img)
-    ROIs = detect_ROI(pre_processed)
+    ROI = detect_ROI(pre_processed)
 
-    return res_img, ROIs
+    return res_img, ROI
+
+
+def draw_ROI(img, ROI):
+    '''Draws Regions of Interest on img
+    
+    expects the output of a detector function (img & ROIs)
+    img and ROIs have to be the same shape.
+
+    ROI: (top_left, bottom_right) of a region rectangle.
+      meant to be used with cv.rectangle
+    '''
+    img = cv.cvtColor(img ,cv.COLOR_GRAY2RGB)
+    for region in ROI:
+        tl, br = tuple(region[0]), tuple(region[1])
+        cv.rectangle(img, tl, br, (0, 200, 0), 5)
+
+    return img
 
 
 if __name__ == "__main__":
     pic = "pictures/samples/cats1.jp2"
     res_img, ROIs = V1(pic)
-    out = res_img.copy()
-    for ROI in ROIs:
-        tl, br = tuple(ROI[0]), tuple(ROI[1])
-        cv.rectangle(out, tl, br, 127, 5)
+    out = draw_ROI(res_img.copy(), ROIs)
 
     display(res_img, out)

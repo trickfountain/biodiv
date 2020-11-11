@@ -25,6 +25,24 @@ def display(img, img2=None, title=None, cmap="gray"):
     plt.show()
 
 
+def resize_img(img: np.array, resize_width=800):
+    '''Resize image.
+
+    Keep original shape if resize_width=False
+    '''
+    if not isinstance(img, np.ndarray):
+        raise ValueError('img should be of format np.array')
+
+    if resize_width:
+        width = resize_width
+        resize_factor = width/img.shape[1]
+        img = cv.resize(img.copy(), None, fx=resize_factor, fy=resize_factor,
+                        interpolation=cv.INTER_CUBIC
+                        )
+
+    return img
+
+
 def rect_area(pt1, pt2):
     max_x, min_y = pt1
     min_x, max_y = pt2
