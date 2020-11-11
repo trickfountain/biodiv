@@ -1,9 +1,10 @@
 # Biodiv project
 
 # Next up
-- this seems to be the culprit: 'biodiv/tests/test_images/but1_lab.jp2'
+- redo tests with labelled images
+- check if Travis works now.
 - fix git prompt in iterminal
-- Load everything in docker, might resolve TravisCI issues.
+- Load everything in docker.
 
 `main.py` *eventually cli.py*
     - [x] find ROIs from provided paths and display result

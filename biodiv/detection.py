@@ -1,25 +1,7 @@
 # -*- coding: utf-8 -*-
 import cv2 as cv
 import numpy as np
-from biodiv.utils import bounded_rectangle, display
-
-
-def resize_img(img: np.array, resize_width=False):
-    '''Resize image.
-
-    Keep original shape if resize_width=False
-    '''
-    if not isinstance(img, np.ndarray):
-        raise ValueError('img should be of format np.array, check input provided')
-
-    if resize_width:
-        width = resize_width
-        resize_factor = width/img.shape[1]
-        img = cv.resize(img.copy(), None, fx=resize_factor, fy=resize_factor,
-                        interpolation=cv.INTER_CUBIC
-                        )
-
-    return img
+from biodiv.utils import bounded_rectangle, display, resize_img
 
 
 def pp_img(img: np.ndarray, ksize=5, pmsf_par=(21,21)):
