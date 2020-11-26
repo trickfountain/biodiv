@@ -3,6 +3,7 @@
 import cv2 as cv
 from biodiv.detection import V1, draw_ROI, display
 from argparse import ArgumentParser
+from pathlib import Path
 
 
 def main():
@@ -15,29 +16,31 @@ def main():
         'path', help='picture to apply detection on'
     )
     parser.add_argument(
-        '-o', '--output', default=None
+        '-o', '--output', default=None,
+        help='directory where to save pic_det.png'
     )
 
-    # TODO: add -o --output to define output path.
     args = parser.parse_args()
 
+    img_pth = Path(args.path)
+
     if args.action == 'show':
-        pic = args.path
-        res_img, ROIs = V1(pic)
+        res_img, ROIs = V1(str(img_pth))
         out = draw_ROI(res_img.copy(), ROIs)
 
         display(res_img, out)
 
     elif args.action == 'save':
-        pic = args.path
-        res_img, ROIs = V1(pic)
+        res_img, ROIs = V1(str(img_pth))
         out = draw_ROI(res_img.copy(), ROIs)
 
         if args.output is None:
-            cv.imwrite(pic.split('.')[0] + '_det.'
-                       + pic.split('.')[1], out)
+            out_pth = str(img_pth).split('.')[0] + '_det.png'
+            cv.imwrite(out_pth, out)
         else:
-            cv.imwrite(args.output, out)
+            file_name = img_pth.name.split('.')[0] + '_det.png'
+            out_pth = Path(args.output) / file_name
+            cv.imwrite(str(out_pth), out)
 
 
 if __name__ == "__main__":

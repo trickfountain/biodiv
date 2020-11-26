@@ -1,18 +1,21 @@
 # Biodiv project
 
-# Next up
-<<<<<<< HEAD
-- [ ] make detection runnable from command line.
+# ToDO
+- [x] make detection runnable from command line.
     - returns green rectangle and saves it to pic_det.ext
-- Use the labeller from Docker: Can we render image directly from container or does it needs a webapp ?
-- 2-container process: add either flask app or DB (Mongo ?)
-=======
-- redo tests with labelled images
-- check if Travis works now.
-- fix git prompt in iterminal
-- Load everything in docker.
->>>>>>> 94cccea4f33dc549cc042733c0f993f449566f9b
+- [ ] change _det images in .png to enable seeing via web browser
+- [ ] add -o to send images to host volumes
+- [ ] Create super basic website with NGINX that enables browsing pictures.
+- [ ] Use detector CLI 
+    - [ ] first docker build: review structure with udemy class.
+    - [ ] Test it using mount
+    - [ ] Make Vs code docker extension specific to your project.
+    - [ ] Add test and use docker build on Travis
+- [ ] package biodiv or your whole project as a wheel with setup tools. see: https://packaging.python.org/tutorials/packaging-projects/
+    - consider using poetry. its just a wrapper that creates a wheel. https://python-poetry.org/docs/basic-usage/
 
+# Up next
+- [ ] 2-container process: add either flask app to show labelled or DB to save pic_det.
 
 ## mid term
 - super simple web app to wrap functions above.
