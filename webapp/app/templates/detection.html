@@ -1,0 +1,49 @@
+
+<h1>Pick an image to detect</h1>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.pick_img.label }} -->
+        {{ form.pick_img(size=1)}}
+        <br>
+        {{form.pick_img_submit}}
+    </p>
+
+</form>
+<div>
+    ##TODO : Use flexbox and css instead of shitty ad hoc styling.
+    <h3>Test Zone </h3>
+    {% for key, val in test_dict.items() %}
+        {{key}} : {{val}} <br>
+    {% endfor %}
+    <h3>End of test zone</h3>
+
+    <div style="width:100%; overflow:hidden;">
+    <!-- image on the left: no detection -->
+            <h3 style="text-align: center; margin-left:30%;"> Image picked --------> Forms detected </h3>
+            <div style="white-space:nowrap;"></div>
+            {% if src_url %}
+                <img src="{{ src_url }}" style="width:45%; height:auto; display:inline-block" alt="src">
+            {% else %}
+                Select image from dropdown menu
+            {% endif %}
+
+            {% if det_url %}
+                <img src="{{ det_url }}" style="margin-left:1%; width:45%; height:auto; display:inline-block" alt="detected">
+            {% else %}
+                <p style="display:inline-block; vertical-align:top; font:bolder;"> Select image from dropdown menu</p>
+            {% endif %}
+        </div>
+    </div>
+</div>

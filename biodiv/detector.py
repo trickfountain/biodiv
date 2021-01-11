@@ -1,47 +1,62 @@
-#TO DO: ADD ARGPARSE
+from biodiv.detection import roiDrawer
+from biodiv.filter import (imgResizer, medBlurrer, otsuThresholder,
+                           pyramidMeanShiftFilter)
+from biodiv.img import imgLoader
 
 import cv2 as cv
-from biodiv.detection import V1, draw_ROI, display
-from argparse import ArgumentParser
-from pathlib import Path
 
 
-def main():
-    parser = ArgumentParser()
-    parser.add_argument(
-        'action', choices=['save', 'show'],
-        help='Choose between relabelling all images or just new ones'
-    )
-    parser.add_argument(
-        'path', help='picture to apply detection on'
-    )
-    parser.add_argument(
-        '-o', '--output', default=None,
-        help='directory where to save pic_det.png'
-    )
+class detectorV1:
+    '''First version of detection pipeline
+    '''
 
-    args = parser.parse_args()
+    LOADING_RESIZING_STEPS = [
+        imgResizer(width=600)
+    ]
+    IMG_FILTER_STEPS = [
+        medBlurrer(),
+        otsuThresholder(),
+        pyramidMeanShiftFilter(),
+    ]
+    ROI_DETECTION_STEPS = [ 
+        roiDrawer()
+    ]
 
-    img_pth = Path(args.path)
+    STAGES = {
+        'Loading and resizing': LOADING_RESIZING_STEPS,
+        'Image filters': IMG_FILTER_STEPS,
+        'Detection': ROI_DETECTION_STEPS
+    }
 
-    if args.action == 'show':
-        res_img, ROIs = V1(str(img_pth))
-        out = draw_ROI(res_img.copy(), ROIs)
+    def __init__(self, img_pth) -> None:
+        loader = imgLoader(img_pth)
+        self.img = loader.load_image()
 
-        display(res_img, out)
+    def apply(self):
+        
+        for step in self.LOADING_RESIZING_STEPS:
+            self.img = step.apply(self.img)
+            self.resized_img = self.img.copy()
 
-    elif args.action == 'save':
-        res_img, ROIs = V1(str(img_pth))
-        out = draw_ROI(res_img.copy(), ROIs)
+            # cv.imshow('resized', self.resized_img)
+            # cv.waitKey(0)
 
-        if args.output is None:
-            out_pth = str(img_pth).split('.')[0] + '_det.png'
-            cv.imwrite(out_pth, out)
-        else:
-            file_name = img_pth.name.split('.')[0] + '_det.png'
-            out_pth = Path(args.output) / file_name
-            cv.imwrite(str(out_pth), out)
+        for step in self.IMG_FILTER_STEPS:
+            self.img = step.apply(self.img)
+            # cv.imshow(f'{step}', self.img)
+            # cv.waitKey(0)
 
+        for step in self.ROI_DETECTION_STEPS:
+            self.img = step.apply(self.img)
+            # cv.imshow(f'{step}', self.img)
+            # cv.waitKey(0)
 
-if __name__ == "__main__":
-    main()
+        return self.resized_img, self.img
+
+    def __repr__(self) -> str:
+        repr = ''
+        for stage, step_list in self.STAGES.items():
+            repr += f'------- {stage} ------\n'
+            for step in step_list:
+                repr += str(step) + '     \n'
+        return repr

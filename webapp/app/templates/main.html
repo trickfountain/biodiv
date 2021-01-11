@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Biodiv - find the cat, be the cat</title>
+    </head>
+    <body>
+        <h1> Pictures found in directory: {{img_dir}}</h1>
+
+        <h3>Test Zone </h3>
+        {% for key, val in test_dict.items() %}
+            {{key}} : {{val}} <br>
+        {% endfor %}
+        <h3>End of test zone</h3>
+
+        static files : {{static_files}} <br>
+
+        <!-- Loading image : {{test_img_url}} <br> -->
+
+
+        {% for name, url in img_name_and_url %}
+
+        <br>
+        <img src="{{ url }}" alt="{{ name }}">
+        <br>
+        {% endfor %}
+
+        
+
+        <!-- <img src="/static/cats1_det.png" alt="image here" align="middle" > -->
+    </body>
+</html>

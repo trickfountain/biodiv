@@ -1,11 +1,20 @@
 # Biodiv project
 
 # ToDO
-- [x] make detection runnable from command line.
-    - returns green rectangle and saves it to pic_det.ext
-- [ ] change _det images in .png to enable seeing via web browser
-- [ ] add -o to send images to host volumes
-- [ ] Create super basic website with NGINX that enables browsing pictures.
+- [ ] test apply() in detection
+- [ ] make detectorV1 work
+- [ ] Commit your code
+    - [ ] CI should work.
+- [ ] Back to website/docker etc.
+    - [ ] integration test would be nice.
+
+- [ ] add minimal tests to flask app.
+    - screwing around in biodiv should break the flask tests.
+- [ ] solve relative imports and such, everything in one package for now.
+
+-- back in docker--
+- [ ] Use NGINX to serve static and for server... backend ?
+- [ ] use volumes and mount to manage static files.
 - [ ] Use detector CLI 
     - [ ] first docker build: review structure with udemy class.
     - [ ] Test it using mount
@@ -14,8 +23,8 @@
 - [ ] package biodiv or your whole project as a wheel with setup tools. see: https://packaging.python.org/tutorials/packaging-projects/
     - consider using poetry. its just a wrapper that creates a wheel. https://python-poetry.org/docs/basic-usage/
 
-# Up next
-- [ ] 2-container process: add either flask app to show labelled or DB to save pic_det.
+## Up next
+- transform your webapp into a labeller.
 
 ## mid term
 - super simple web app to wrap functions above.
@@ -26,5 +35,8 @@
 ## Goal of the project
 - [x] Practice testing 
 - [x] First foray into CI/CD
+- [ ] Tesing flask apps (integration tests)
 - [ ] docker
+- [ ] multi-container app with docker compose
+- [ ] using nginx to serve content, enable logging.
 - [ ] combine above on the cloud.

@@ -43,11 +43,12 @@ def resize_img(img: np.array, resize_width=800):
     return img
 
 
-def rect_area(pt1, pt2):
-    max_x, min_y = pt1
-    min_x, max_y = pt2
-    width = max_x - min_x
-    height = max_y - min_y
+def rectangle_area(top_left, bottom_right):
+    '''return area from top_left and bottom right coordinates
+    of a rectangle.
+    '''
+    width = bottom_right[0] - top_left[0]
+    height = bottom_right[1] - top_left[1]
     area = width * height
 
     return area
@@ -58,6 +59,7 @@ def otsu(img):
     return OTSU
 
 
+#TODO: Deprecated, is now within ROIdrawer class.
 def bounded_rectangle(x, y, w, h, margin, width, height, output_type="tlbr"):
     '''Return coordinates of ROI rectangle taking into account margins and
     img boundaries.
@@ -123,13 +125,3 @@ def find_extContours(img, thresh=1000):
     ext_contours = [cnt for cnt in contours if cv.contourArea(cnt) > thresh]
 
     return ext_contours
-
-
-# TODO: Create load_image
-def load_image(img_src, colors=1):
-    '''Loads image with cv2 and raise error if source not found
-    '''
-    ## Test for file on img_src.
-
-
-    ## Check that img is not None on exit.

@@ -2,7 +2,7 @@
 /.env
 *.ipynb
 /pictures
-/venv
+/venv*
 /.vscode
 /.ipynb_checkpoints
 **/.pytest_cache
@@ -10,3 +10,5 @@
 /Computer-Visi*
 **/.DS_Store
 **/__pycache__
+/saved_pictures
+/venv_flask

@@ -1,0 +1,11 @@
+# Environment file for project biodiv
+
+alias biodiv="cd $PROJECTS/biodiv && . venv_flask/bin/activate && code ."
+alias biodiv_web="cd $PROJECTS/biodiv && . venv_flask/bin/activate && code webapp/"
+export PYTHONPATH='.'
+export FLASK_APP=webapp/biodiv_webapp.py
+export FLASK_DEBUG=1
+export OPENCV_IO_ENABLE_JASPER=ON
+unset git
+alias rct="pytest biodiv/tests/test_detection.py"
+source /Users/ericfontaine/code/biodiv/venv_flask/bin/activate
